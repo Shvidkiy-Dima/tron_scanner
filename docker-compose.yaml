@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:latest
+    env_file:
+      - .env
+
+  tron_listener:
+    environment:
+      ENV: 'PROD'
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: tron_listener
+    restart: always
+    command: /start.sh
+    depends_on:
+      - db
+    env_file:
+      - .env
+    volumes:
+      - ./tron_listener/logs/:/app/logs
+      - ./ssl:/app/ssl
+
