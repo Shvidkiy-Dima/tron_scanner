@@ -48,6 +48,9 @@ class TronAPI:
         return res
 
     async def get_blocks_by_num_range(self, num: int, num_range=5) -> list:
+        """
+        Returns the list of Block Objects included in the 'Block Height' range specified. (Confirmed state)
+        """
         res = await self._post_request(self.BLOCK_BY_NUM_RANGE, json_data={"startNum": num, "endNum": num + num_range})
         return res.get('block')
 

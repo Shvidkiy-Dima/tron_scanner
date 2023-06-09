@@ -1,9 +1,8 @@
 version: '3.9'
 
-
-
 volumes:
-  db_data:
+  postgres-data:
+
 
 services:
   db:
@@ -11,7 +10,7 @@ services:
     env_file:
       - .env
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
 
 
   tron_scanner:
