@@ -14,11 +14,14 @@ class TronAPI:
 
     def __init__(self, api_key):
         self.api_key = api_key
-        self._client: ClientSession = ClientSession(
-            headers={
+
+        headers = {
                 'Content-Type': "application/json",
             }
-        )
+
+        if api_key:
+            headers.update({'TRON-PRO-API-KEY': api_key})
+        self._client: ClientSession = ClientSession(headers=headers)
 
     async def close_session(self):
         await self._client.close()

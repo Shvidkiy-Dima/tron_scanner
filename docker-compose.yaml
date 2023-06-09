@@ -1,25 +1,30 @@
 version: '3.9'
 
+
+
+volumes:
+  db_data:
+
 services:
   db:
     image: postgres:latest
     env_file:
       - .env
+    volumes:
+      - db_data:/var/lib/postgresql/data
 
-  tron_listener:
-    environment:
-      ENV: 'PROD'
+
+  tron_scanner:
+    ports:
+      - "8000:8000"
     build:
       context: .
       dockerfile: ./Dockerfile
-    image: tron_listener
+    image: tron_scanner
     restart: always
     command: /start.sh
     depends_on:
       - db
     env_file:
       - .env
-    volumes:
-      - ./tron_listener/logs/:/app/logs
-      - ./ssl:/app/ssl
 

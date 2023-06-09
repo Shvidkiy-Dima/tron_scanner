@@ -154,3 +154,5 @@ fabric.properties
 
 node_modules/
 media
+
+db_volume/

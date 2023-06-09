@@ -222,7 +222,7 @@ class Transaction(Base):
     currency = relationship('Currency', back_populates='transactions')
 
     block_num = Column(String(256), nullable=True)
-    txid = Column(String(66), nullable=False) # TODO: uniq and PK?
+    txid = Column(String(66), nullable=False, unique=True) # TODO: uniq and PK?
     from_address = Column(String(64), nullable=True, index=True) # TODO: nullable=True ?
     to_address = Column(String(64), nullable=False, index=True)
     purpose = Column(String(16), nullable=False)
@@ -242,10 +242,6 @@ class Transaction(Base):
     class Currency:
         USDT = 'USDT'
         TRX = 'TRX'
-
-    def __repr__(self):
-        return f'[Transaction {self.purpose} {self.currency.human_string(self.amount)} {self.from_address} → ' \
-               f'{self.to_address} {self.time} {self.txid} status:{self.status}]'
 
     @staticmethod
     async def get_by_txid(session: AsyncSession, txid: str) -> Union['Transaction', None]:

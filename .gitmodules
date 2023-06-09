@@ -1,4 +1,0 @@
-[submodule "listener_models"]
-	path = listener_models
-	url = git@gitlab.com:komanda2/listener_models.git
-	branch = master
